@@ -1,0 +1,14 @@
+{
+  "name": "House Plan Match Maker",
+  "short_name": "PlanMatch",
+  "description": "Describe your dream home and get ranked house plan matches with explanations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#12213D",
+  "theme_color": "#12213D",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
