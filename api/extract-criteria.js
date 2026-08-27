@@ -69,7 +69,7 @@ Infer sensible values from vague, non-technical language (e.g. "cozy for a growi
     if (!response.ok) {
       const errText = await response.text();
       console.error("Anthropic API error:", response.status, errText);
-      res.status(502).json({ error: "Upstream model call failed" });
+      res.status(502).json({ error: "Upstream model call failed", debug: { status: response.status, body: errText } });
       return;
     }
 
