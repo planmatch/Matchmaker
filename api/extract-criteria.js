@@ -57,6 +57,7 @@ Infer sensible values from vague, non-technical language (e.g. "cozy for a growi
         "Content-Type": "application/json",
         "x-api-key": process.env.ANTHROPIC_API_KEY,
         "anthropic-version": "2023-06-01",
+        "anthropic-workspace-id": "wrkspc_014ibFRQ5RptfwEgHXeKx56Y",
       },
       body: JSON.stringify({
         model: "claude-sonnet-5",
