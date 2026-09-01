@@ -1,7 +1,7 @@
 # PlanMatch (planmatch.dev)
 
 An AI house plan matchmaker — a Vite + React app that matches free-text home descriptions to
-house plans, using Claude for criteria extraction and personalized match explanations. Ships
+house plans, using an LLM for criteria extraction and personalized match explanations. Ships
 ready to deploy to either **Vercel** or **Netlify** — pick one, the code doesn't change either
 way.
 
@@ -12,26 +12,43 @@ src/               React frontend
   App.jsx          Main UI (landing + results)
   data/plans.js     Sample plan catalog + Cool House Plans / Allison Ramsey link maps
   lib/matching.js   Regex fallback parser + rule-based scoring
-  lib/apiClient.js  Calls OUR OWN backend at /api/* (never calls Anthropic directly)
+  lib/apiClient.js  Calls OUR OWN backend at /api/* (never calls a model API directly)
 
-api/               Vercel serverless functions (auto-detected, zero config)
+server/            Platform-agnostic backend logic (imported by both api/ and netlify/functions/)
+  ai/index.js       Provider registry + getProvider() — the only thing business logic calls
+  ai/providers/     One file per AI provider (anthropic.js, openai.js), each implementing
+                    the same complete({system, prompt, maxTokens}) contract
+  matching/         extractCriteria.js and matchCopy.js — prompts + JSON parsing, provider-agnostic
+
+api/               Vercel serverless functions (auto-detected, zero config) — thin HTTP
+                    adapters over server/matching/*
   extract-criteria.js
   match-copy.js
 
-netlify/functions/ Same two functions, adapted to Netlify's handler signature
+netlify/functions/ Same two functions, adapted to Netlify's handler signature, calling the
+                    same server/matching/* logic
 netlify.toml       Redirects /api/* -> /.netlify/functions/* so the frontend
                     code is identical on both platforms
 ```
 
-**Why a backend at all?** The Claude API key can't live in browser code — anyone could open
-dev tools and steal it. Both serverless functions read `ANTHROPIC_API_KEY` from an environment
-variable that only exists server-side.
+**Why a backend at all?** The model API key can't live in browser code — anyone could open
+dev tools and steal it. Both serverless functions read provider credentials from environment
+variables that only exist server-side.
+
+**Swapping the AI provider.** Business logic in `server/matching/` never calls Claude, GPT, or
+any model API directly — it only calls `getProvider().complete(...)` from `server/ai/index.js`.
+To switch models, set `AI_PROVIDER` (and that provider's own env vars — see `.env.example`) and
+redeploy; no application code changes. `anthropic` and `openai` ship out of the box, and the
+`openai` provider works with any self-hosted runtime that speaks the same wire format (Ollama,
+vLLM, LM Studio, etc.) by pointing `OPENAI_BASE_URL` at it. Adding a new provider means adding
+one file to `server/ai/providers/` that implements `complete()` and registering it in
+`server/ai/index.js` — nothing else in the app changes.
 
 ## Local setup
 
 ```bash
 npm install
-cp .env.example .env.local   # fill in your real ANTHROPIC_API_KEY
+cp .env.example .env.local   # fill in your real provider credentials
 ```
 
 To run locally with working `/api` calls, use whichever platform's CLI you plan to deploy to:
@@ -54,7 +71,8 @@ doesn't run serverless functions.)
 1. Push this repo to GitHub.
 2. Go to [vercel.com/new](https://vercel.com/new) and import the repo.
 3. Vercel auto-detects the Vite build and the `/api` folder — no config needed.
-4. In **Project Settings → Environment Variables**, add `ANTHROPIC_API_KEY` with your real key.
+4. In **Project Settings → Environment Variables**, add the env vars for whichever provider
+   you're using (e.g. `ANTHROPIC_API_KEY` — see `.env.example` for the full list per provider).
 5. Deploy. Your `/api/extract-criteria` and `/api/match-copy` endpoints go live automatically.
 6. In **Project Settings → Domains**, add `planmatch.dev` (if you registered it through Vercel,
    nameservers are already pointed there — this step is instant).
@@ -65,7 +83,8 @@ doesn't run serverless functions.)
 2. Go to [app.netlify.com/start](https://app.netlify.com/start) and import the repo.
 3. Netlify reads `netlify.toml` automatically — build command and functions folder are already
    configured.
-4. In **Site settings → Environment variables**, add `ANTHROPIC_API_KEY` with your real key.
+4. In **Site settings → Environment variables**, add the env vars for whichever provider you're
+   using (see `.env.example`).
 5. Deploy. The `/api/*` redirect routes to your functions automatically.
 
 ## Before real users hit this
