@@ -644,12 +644,6 @@ function Landing({
           )}
           {loading ? loadingLabel : "Find my matches →"}
         </button>
-
-        <p className="mt-3 text-xs text-[#FAF8F3]/50">
-          Sample catalog of {PLANS.length} plans for this demo. "See plans" links open real style
-          collections on Cool House Plans and Allison Ramsey Architects. Your brief is read by
-          Claude to pick up on things like "starter home" or "growing family."
-        </p>
       </section>
     </div>
   );
