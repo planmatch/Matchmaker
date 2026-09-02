@@ -112,7 +112,11 @@ export function scorePlan(plan, criteria) {
     }
   }
 
-  if (criteria.budgetMax !== undefined) {
+  // Only meaningful when plan.price represents an estimated house cost —
+  // plans priced as a plan set (e.g. real Truoba listings) show the cost
+  // of the drawings, not the built home, so it can't be fairly compared
+  // to a buyer's construction budget.
+  if (criteria.budgetMax !== undefined && !plan.priceNote) {
     possible += 2;
     if (plan.price <= criteria.budgetMax) {
       score += 2;

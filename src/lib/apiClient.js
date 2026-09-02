@@ -31,6 +31,7 @@ export async function generateMatchCopy(description, topScored) {
         stories: plan.stories,
         garage: plan.garage,
         price: plan.price,
+        priceNote: plan.priceNote,
         features: plan.tags,
         pct,
       })),

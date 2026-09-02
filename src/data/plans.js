@@ -1,12 +1,15 @@
 /* ---------------------------------------------------------
-   Truoba — primary plan provider, tracked referral link.
-   Truoba's catalog is exclusively modern/contemporary designs with
-   its own category taxonomy (by size, bed count, etc.), which doesn't
-   line up with this app's style list — so rather than fabricate
-   unverified per-style deep links, every result points to the same
-   tracked referral URL.
+   Truoba — primary plan provider, tracked referral link
+   (?ref=609). Truoba only sells modern/contemporary designs, so
+   only this catalog's "modern" plans are real Truoba plans — each
+   carries its own verified truobaUrl pointing at its actual detail
+   page, sourced from truoba.com/house-plans/. The other styles below
+   remain sample-only and have no provider link, rather than pointing
+   a "See on Truoba" button at a plan Truoba doesn't actually sell.
 --------------------------------------------------------- */
-export const TRUOBA_URL = "https://www.truoba.com/?ref=609";
+function truobaUrl(slug) {
+  return `https://www.truoba.com/house-plans/${slug}/?ref=609`;
+}
 
 /* ---------------------------------------------------------
    DATA: curated sample house-plan catalog (stand-in for a
@@ -42,18 +45,132 @@ export const PLANS = [
       "Tapered columns and exposed rafter tails outside; a flexible den up front works as an office or playroom.",
   },
   {
-    id: "PL-0788",
-    name: "Cinder Peak Modern",
+    id: "TM-220",
+    name: "Truoba Mini 220",
+    style: "modern",
+    beds: 1,
+    baths: 1,
+    sqft: 570,
+    stories: 1,
+    garage: 0,
+    price: 700,
+    priceNote: "plan set",
+    truobaUrl: truobaUrl("tm-220"),
+    tags: ["porch"],
+    blurb:
+      "A 570 sq ft guest-house-scale plan built around one open living space with a fireplace and covered front and side porches.",
+  },
+  {
+    id: "TM-525",
+    name: "Truoba Mini 525",
+    style: "modern",
+    beds: 2,
+    baths: 1,
+    sqft: 915,
+    stories: 1,
+    garage: 0,
+    price: 900,
+    priceNote: "plan set",
+    truobaUrl: truobaUrl("tm-525"),
+    tags: ["porch"],
+    blurb:
+      "A compact two-bedroom plan with a wood stove, covered front and side porches, and a rear deck.",
+  },
+  {
+    id: "T-126",
+    name: "Truoba 126",
+    style: "modern",
+    beds: 2,
+    baths: 2,
+    sqft: 1680,
+    stories: 2,
+    garage: 0,
+    price: 1500,
+    priceNote: "plan set",
+    truobaUrl: truobaUrl("t-126"),
+    tags: ["porch", "open floor plan"],
+    blurb:
+      "A two-story plan with an open living area linked to covered front and rear porches, a sundeck, and an optional basement.",
+  },
+  {
+    id: "T-218",
+    name: "Truoba 218",
+    style: "modern",
+    beds: 3,
+    baths: 2,
+    sqft: 1628,
+    stories: 2,
+    garage: 2,
+    price: 1500,
+    priceNote: "plan set",
+    truobaUrl: truobaUrl("t-218"),
+    tags: ["porch", "open floor plan", "primary suite on main"],
+    blurb:
+      "A mid-century modern design with a main-floor primary suite, a walk-in closet, and a two-car garage.",
+  },
+  {
+    id: "T-225",
+    name: "Truoba 225",
+    style: "modern",
+    beds: 3,
+    baths: 2.5,
+    sqft: 2170,
+    stories: 2,
+    garage: 2,
+    price: 1600,
+    priceNote: "plan set",
+    truobaUrl: truobaUrl("t-225"),
+    tags: ["porch", "open floor plan", "primary suite on main", "office"],
+    blurb:
+      "A modern farmhouse with a main-floor primary suite, a home office, a detached garage, and covered porches on three sides.",
+  },
+  {
+    id: "T-322",
+    name: "Truoba 322",
+    style: "modern",
+    beds: 3,
+    baths: 2,
+    sqft: 2278,
+    stories: 2,
+    garage: 2,
+    price: 1700,
+    priceNote: "plan set",
+    truobaUrl: truobaUrl("t-322"),
+    tags: ["porch", "open floor plan", "primary suite on main", "office"],
+    blurb:
+      "A modern mid-century plan with a main-floor primary suite, a study room, a mudroom, and covered front and rear porches.",
+  },
+  {
+    id: "TC-125",
+    name: "Truoba Class 125",
+    style: "modern",
+    beds: 4,
+    baths: 2.5,
+    sqft: 2604,
+    stories: 1,
+    garage: 2,
+    price: 1700,
+    priceNote: "plan set",
+    truobaUrl: truobaUrl("tc-125"),
+    tags: ["porch", "open floor plan", "office"],
+    blurb:
+      "A single-story four-bedroom plan with a home office, a fireplace, a walk-in pantry, and covered porches front and back.",
+  },
+  {
+    id: "TC-1422",
+    name: "Truoba Class 1422",
     style: "modern",
     beds: 4,
     baths: 3.5,
-    sqft: 3120,
-    stories: 2,
+    sqft: 2562,
+    stories: 1,
     garage: 2,
-    price: 412000,
-    tags: ["open floor plan", "primary suite on main", "basement"],
+    price: 2100,
+    priceNote: "plan set",
+    truobaUrl: truobaUrl("tc-1422"),
+    tags: ["porch", "open floor plan", "office"],
     blurb:
-      "Flat rooflines and floor-to-ceiling glass along the back elevation, with a finished lower level for a media room.",
+      "The largest plan in the lineup, with a home office, a guest bedroom, and covered porches front and back.",
   },
   {
     id: "PL-3355",
@@ -166,20 +283,6 @@ export const PLANS = [
     tags: ["porch", "open floor plan", "basement", "office"],
     blurb:
       "Stone-and-shingle exterior with a full unfinished basement, ready to grow into a fifth bedroom later.",
-  },
-  {
-    id: "PL-0912",
-    name: "Talbot Modern Ranch",
-    style: "modern",
-    beds: 3,
-    baths: 2,
-    sqft: 1950,
-    stories: 1,
-    garage: 2,
-    price: 231000,
-    tags: ["primary suite on main", "open floor plan", "vaulted ceilings"],
-    blurb:
-      "A single-story modern with a low-slung roofline and a great room ceiling that vaults to twelve feet.",
   },
 ];
 

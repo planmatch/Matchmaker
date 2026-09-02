@@ -3,7 +3,6 @@ import {
   PLANS,
   STYLES,
   FEATURES,
-  TRUOBA_URL,
 } from "./data/plans.js";
 import { parseDescription, scorePlan } from "./lib/matching.js";
 import { extractCriteriaWithLLM, generateMatchCopy } from "./lib/apiClient.js";
@@ -666,7 +665,8 @@ function Results({ results, criteriaSummary, onBack, today, usedFallback }) {
             Your shortlist
           </h1>
           <p className="mt-1 text-xs text-[#FAF8F3]/50">
-            Plan links open Truoba's modern house plan catalog. Some links on this page are
+            Modern-style matches link directly to their real plan page on Truoba, our house plan
+            provider. Other styles are sample data for this demo. Some links on this page are
             affiliate links — we may earn a commission if you make a purchase, at no extra cost
             to you.{" "}
             <a href="/affiliate-disclosure.html" className="underline hover:text-[#9CAF88]">
@@ -784,18 +784,25 @@ function Results({ results, criteriaSummary, onBack, today, usedFallback }) {
               <div className="flex items-center justify-between">
                 <span className="font-display font-semibold text-[#FAF8F3]">
                   ${plan.price.toLocaleString()}
+                  {plan.priceNote && (
+                    <span className="ml-1 font-mono text-[10px] font-normal text-[#FAF8F3]/40 uppercase">
+                      {plan.priceNote}
+                    </span>
+                  )}
                 </span>
               </div>
-              <div className="mt-3">
-                <a
-                  href={TRUOBA_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full px-4 py-2 rounded-md bg-[#C1502E] text-[#FAF8F3] text-sm font-medium hover:bg-[#9CAF88] hover:text-[#12213D] transition-colors text-center"
-                >
-                  See on Truoba →
-                </a>
-              </div>
+              {plan.truobaUrl && (
+                <div className="mt-3">
+                  <a
+                    href={plan.truobaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full px-4 py-2 rounded-md bg-[#C1502E] text-[#FAF8F3] text-sm font-medium hover:bg-[#9CAF88] hover:text-[#12213D] transition-colors text-center"
+                  >
+                    See on Truoba →
+                  </a>
+                </div>
+              )}
             </div>
           </article>
         ))}

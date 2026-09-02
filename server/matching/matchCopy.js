@@ -8,7 +8,7 @@ export async function generateMatchCopy(description, plans) {
     throw new Error("description and a non-empty plans array are required");
   }
 
-  const system = `You write short, specific one-sentence explanations of why a house plan fits what someone asked for. Ground every sentence in real attributes of that plan — don't invent features it doesn't have. Keep each sentence under 22 words, plain and concrete, no marketing fluff. Respond with ONLY a JSON array of objects: [{"id": "<plan id>", "note": "<one sentence>"}, ...], one entry per plan given, no markdown fences.`;
+  const system = `You write short, specific one-sentence explanations of why a house plan fits what someone asked for. Ground every sentence in real attributes of that plan — don't invent features it doesn't have. When a plan's price is labeled "plan set", that's the cost of the construction drawings, not the built home — never describe it as the cost of the house, and don't call it affordable or a good deal relative to a construction budget. Keep each sentence under 22 words, plain and concrete, no marketing fluff. Respond with ONLY a JSON array of objects: [{"id": "<plan id>", "note": "<one sentence>"}, ...], one entry per plan given, no markdown fences.`;
 
   const userMsg = `Buyer's brief: "${description}"
 
@@ -16,7 +16,7 @@ Plans to explain:
 ${plans
   .map(
     (p) =>
-      `- id: ${p.id}, name: ${p.name}, style: ${p.style}, beds: ${p.beds}, baths: ${p.baths}, sqft: ${p.sqft}, stories: ${p.stories}, garage: ${p.garage}, price: $${p.price}, features: ${p.features.join(", ")}, match score: ${p.pct}%`
+      `- id: ${p.id}, name: ${p.name}, style: ${p.style}, beds: ${p.beds}, baths: ${p.baths}, sqft: ${p.sqft}, stories: ${p.stories}, garage: ${p.garage}, price: $${p.price}${p.priceNote ? ` (${p.priceNote})` : ""}, features: ${p.features.join(", ")}, match score: ${p.pct}%`
   )
   .join("\n")}`;
 
