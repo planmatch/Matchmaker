@@ -1,38 +1,12 @@
 /* ---------------------------------------------------------
-   Cool House Plans integration: real, verified category URLs
-   (coolhouseplans.com has no public affiliate API and its
-   terms prohibit scraping/reproducing plan data, so rather
-   than fabricate per-plan links, each result deep-links to
-   the matching real style category on their live site).
-   TODO: swap these for tracked affiliate URLs once their
-   partnership program confirms a link format.
+   Truoba — primary plan provider, tracked referral link.
+   Truoba's catalog is exclusively modern/contemporary designs with
+   its own category taxonomy (by size, bed count, etc.), which doesn't
+   line up with this app's style list — so rather than fabricate
+   unverified per-style deep links, every result points to the same
+   tracked referral URL.
 --------------------------------------------------------- */
-export const COOL_HOUSE_PLANS_STYLE_URLS = {
-  farmhouse: "https://www.coolhouseplans.com/farmhouse-plans",
-  craftsman: "https://www.coolhouseplans.com/craftsman-house-plans",
-  modern: "https://www.coolhouseplans.com/modern-house-plans",
-  ranch: "https://www.coolhouseplans.com/ranch-house-plans",
-  colonial: "https://www.coolhouseplans.com/colonial-house-plans",
-  cabin: "https://www.coolhouseplans.com/cabin-home-plans",
-  cottage: "https://www.coolhouseplans.com/cottage-house-plans",
-  mediterranean: "https://www.coolhouseplans.com/mediterranean-house-plans",
-  contemporary: "https://www.coolhouseplans.com/contemporary-house-plans",
-};
-export const COOL_HOUSE_PLANS_FALLBACK_URL = "https://www.coolhouseplans.com/house-plans";
-
-// Allison Ramsey Architects — verified live style category pages.
-// No colonial, cabin, or mediterranean category exists on their site,
-// so those styles fall back to the full plan catalog.
-// TODO: swap for tracked affiliate URLs once their program confirms details.
-export const ALLISON_RAMSEY_STYLE_URLS = {
-  farmhouse: "https://allisonramseyhouseplans.com/plan/house-plans/modern-farmhouse",
-  craftsman: "https://allisonramseyhouseplans.com/plan/house-plans/craftsman-house-plans",
-  modern: "https://allisonramseyhouseplans.com/plan/house-plans/modern-house-plans",
-  ranch: "https://allisonramseyhouseplans.com/plan/house-plans/ranch-house-plans",
-  cottage: "https://allisonramseyhouseplans.com/plan/house-plans/cottage-house-plans",
-  contemporary: "https://allisonramseyhouseplans.com/plan/house-plans/contemporary",
-};
-export const ALLISON_RAMSEY_FALLBACK_URL = "https://allisonramseyhouseplans.com/plan/house-plans";
+export const TRUOBA_URL = "https://www.truoba.com/?ref=609";
 
 /* ---------------------------------------------------------
    DATA: curated sample house-plan catalog (stand-in for a

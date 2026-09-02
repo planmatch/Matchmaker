@@ -10,7 +10,7 @@ way.
 ```
 src/               React frontend
   App.jsx          Main UI (landing + results)
-  data/plans.js     Sample plan catalog + Cool House Plans / Allison Ramsey link maps
+  data/plans.js     Sample plan catalog + the Truoba referral link
   lib/matching.js   Regex fallback parser + rule-based scoring
   lib/apiClient.js  Calls OUR OWN backend at /api/* (never calls a model API directly)
 
@@ -89,9 +89,8 @@ doesn't run serverless functions.)
 
 ## Before real users hit this
 
-See the project's legal drafts (`privacy-policy.md`, `terms-of-service.md`,
-`affiliate-disclosure.md`) — the Privacy Policy needs to disclose that description text is sent
-to Anthropic's API, and the FTC disclosure needs to sit near the plan links once affiliate
-tracking is live for Cool House Plans and/or Allison Ramsey Architects.
+See the legal pages under `public/` — the Privacy Policy discloses that description text is
+sent to the active AI provider, and the FTC short-form disclosure now sits directly above the
+plan links on the results page, since the Truoba referral link (`?ref=609`) is live tracking.
 
 The plan catalog in `src/data/plans.js` is sample data — swap in a real feed before launch.

@@ -3,10 +3,7 @@ import {
   PLANS,
   STYLES,
   FEATURES,
-  COOL_HOUSE_PLANS_STYLE_URLS,
-  COOL_HOUSE_PLANS_FALLBACK_URL,
-  ALLISON_RAMSEY_STYLE_URLS,
-  ALLISON_RAMSEY_FALLBACK_URL,
+  TRUOBA_URL,
 } from "./data/plans.js";
 import { parseDescription, scorePlan } from "./lib/matching.js";
 import { extractCriteriaWithLLM, generateMatchCopy } from "./lib/apiClient.js";
@@ -669,8 +666,13 @@ function Results({ results, criteriaSummary, onBack, today, usedFallback }) {
             Your shortlist
           </h1>
           <p className="mt-1 text-xs text-[#FAF8F3]/50">
-            Plan links open real matching collections on Cool House Plans and Allison Ramsey
-            Architects.
+            Plan links open Truoba's modern house plan catalog. Some links on this page are
+            affiliate links — we may earn a commission if you make a purchase, at no extra cost
+            to you.{" "}
+            <a href="/affiliate-disclosure.html" className="underline hover:text-[#9CAF88]">
+              Learn more
+            </a>
+            .
           </p>
 
           {usedFallback && (
@@ -784,22 +786,14 @@ function Results({ results, criteriaSummary, onBack, today, usedFallback }) {
                   ${plan.price.toLocaleString()}
                 </span>
               </div>
-              <div className="mt-3 flex flex-col sm:flex-row gap-2">
+              <div className="mt-3">
                 <a
-                  href={COOL_HOUSE_PLANS_STYLE_URLS[plan.style] || COOL_HOUSE_PLANS_FALLBACK_URL}
+                  href={TRUOBA_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 px-4 py-2 rounded-md bg-[#C1502E] text-[#FAF8F3] text-sm font-medium hover:bg-[#9CAF88] hover:text-[#12213D] transition-colors text-center"
+                  className="block w-full px-4 py-2 rounded-md bg-[#C1502E] text-[#FAF8F3] text-sm font-medium hover:bg-[#9CAF88] hover:text-[#12213D] transition-colors text-center"
                 >
-                  Cool House Plans →
-                </a>
-                <a
-                  href={ALLISON_RAMSEY_STYLE_URLS[plan.style] || ALLISON_RAMSEY_FALLBACK_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 px-4 py-2 rounded-md border border-[#9CAF88] text-[#9CAF88] text-sm font-medium hover:bg-[#9CAF88] hover:text-[#12213D] transition-colors text-center"
-                >
-                  Allison Ramsey →
+                  See on Truoba →
                 </a>
               </div>
             </div>
