@@ -10,10 +10,19 @@ way.
 ```
 src/               React frontend
   App.jsx          Main UI (landing + results)
-  data/plans.js     Real plan catalog — every plan links to its own page on Truoba or
-                    Advanced House Plans, our two affiliate providers
+  data/plans.js     Loads data/plans.generated.json and derives STYLES from it
+  data/plans.generated.json  The actual catalog (904 plans) — generated, don't hand-edit
   lib/matching.js   Regex fallback parser + rule-based scoring
   lib/apiClient.js  Calls OUR OWN backend at /api/* (never calls a model API directly)
+
+scripts/import-plans/  Crawls every registered affiliate site's full catalog and writes
+                    src/data/plans.generated.json — see "Growing the plan catalog" below
+  providers/index.js     Registry — the only file that lists which providers are active
+  providers/truoba.js, advancedHousePlans.js
+                    One file per site, each implementing fetchCatalog(): Promise<Plan[]>
+  lib/http.js       Polite fetch (retries, delay) shared by every provider
+  lib/tags.js       Shared "must-haves" tag detection + HTML-to-text helpers
+  run.js            Orchestrator — run via `npm run import-plans`
 
 server/            Platform-agnostic backend logic (imported by both api/ and netlify/functions/)
   ai/index.js       Provider registry + getProvider() — the only thing business logic calls
@@ -88,13 +97,38 @@ doesn't run serverless functions.)
    using (see `.env.example`).
 5. Deploy. The `/api/*` redirect routes to your functions automatically.
 
+## Growing the plan catalog
+
+Every plan in the catalog is real and links to its own actual detail page — there's no sample
+data. `npm run import-plans` crawls each registered provider's full site and regenerates
+`src/data/plans.generated.json`; `src/data/plans.js` just loads that file and derives the style
+filter chips (`STYLES`) from whatever styles actually came back, so a provider's categories show
+up automatically with no list to hand-maintain.
+
+**Adding a future affiliate site** — this is the part designed to stay cheap as more providers
+show up:
+
+1. Create `scripts/import-plans/providers/<site>.js` implementing the contract documented in
+   `providers/index.js`: `{ name, async fetchCatalog() }`, returning plans already normalized to
+   the common shape (`id, name, style, beds, baths, sqft, stories, garage, price, priceNote?,
+   tags, blurb, provider, providerUrl`) with that site's own tracking code baked into
+   `providerUrl`.
+2. Add it to the `PROVIDERS` array in `providers/index.js`.
+3. Run `npm run import-plans` and commit the regenerated `plans.generated.json`.
+
+Nothing else changes — `src/App.jsx` renders the results card's provider button generically off
+`plan.provider` / `plan.providerUrl`, and `STYLES` is derived, not hardcoded.
+
+Two providers are wired up today: **Truoba** (WooCommerce; crawls `truoba.com/house-plans/` and
+all its pagination) and **Advanced House Plans** (crawls every style collection listed on
+`advancedhouseplans.com/styles`, reading each plan's JSON-LD + specs table). Both adapters use
+best-effort heuristics for anything a site doesn't expose in a structured field (e.g. story count
+from page text when there's no explicit floor breakdown) — spot-check a sample after importing
+from a new site before trusting it blindly.
+
 ## Before real users hit this
 
 See the legal pages under `public/` — the Privacy Policy discloses that description text is
 sent to the active AI provider, and the FTC short-form disclosure sits directly above the plan
 links on the results page, since both providers' referral links (Truoba's `?ref=609`, Advanced
 House Plans' `?a=...`) are live tracking.
-
-The plan catalog in `src/data/plans.js` is a curated set of real plans (14, across the 7 styles
-Truoba and Advanced House Plans actually sell) rather than a full live feed — every plan links to
-its real detail page, but expand the catalog before this needs to cover more ground than a demo.
