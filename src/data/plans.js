@@ -1,49 +1,22 @@
 /* ---------------------------------------------------------
-   Truoba — primary plan provider, tracked referral link
-   (?ref=609). Truoba only sells modern/contemporary designs, so
-   only this catalog's "modern" plans are real Truoba plans — each
-   carries its own verified truobaUrl pointing at its actual detail
-   page, sourced from truoba.com/house-plans/. The other styles below
-   remain sample-only and have no provider link, rather than pointing
-   a "See on Truoba" button at a plan Truoba doesn't actually sell.
+   Real plan providers. Every plan in this catalog links to its own
+   verified detail page on one of these — no sample-only plans.
+
+   Truoba (?ref=609) — modern/contemporary designs only.
+   Advanced House Plans (?a=6a988b5ac89e5) — everything else this
+   catalog covers (farmhouse, craftsman, colonial, cottage,
+   mediterranean, contemporary). Neither provider sells "ranch" or
+   "cabin" as a distinct style, so those categories were dropped
+   rather than showing plans with no real link.
 --------------------------------------------------------- */
 function truobaUrl(slug) {
   return `https://www.truoba.com/house-plans/${slug}/?ref=609`;
 }
+function ahpUrl(slug) {
+  return `https://advancedhouseplans.com/plan/${slug}?a=6a988b5ac89e5`;
+}
 
-/* ---------------------------------------------------------
-   DATA: curated sample house-plan catalog (stand-in for a
-   real plan database / affiliate feed in the MVP)
---------------------------------------------------------- */
 export const PLANS = [
-  {
-    id: "PL-1042",
-    name: "Millbrook Farmhouse",
-    style: "farmhouse",
-    beds: 4,
-    baths: 3,
-    sqft: 2650,
-    stories: 2,
-    garage: 3,
-    price: 285000,
-    tags: ["porch", "open floor plan", "primary suite on main", "office"],
-    blurb:
-      "Wraparound porch, board-and-batten siding, and a great room that opens straight into the kitchen island.",
-  },
-  {
-    id: "PL-2210",
-    name: "Sable Ridge Craftsman",
-    style: "craftsman",
-    beds: 3,
-    baths: 2.5,
-    sqft: 2180,
-    stories: 2,
-    garage: 2,
-    price: 219000,
-    tags: ["porch", "office", "open floor plan"],
-    blurb:
-      "Tapered columns and exposed rafter tails outside; a flexible den up front works as an office or playroom.",
-  },
   {
     id: "TM-220",
     name: "Truoba Mini 220",
@@ -173,130 +146,104 @@ export const PLANS = [
       "The largest plan in the lineup, with a home office, a guest bedroom, and covered porches front and back.",
   },
   {
-    id: "PL-3355",
-    name: "Juniper Trail Ranch",
-    style: "ranch",
+    id: "AHP-KRISTINE",
+    name: "Kristine",
+    style: "farmhouse",
+    beds: 1,
+    baths: 1,
+    sqft: 364,
+    stories: 2,
+    garage: 0,
+    price: 499,
+    priceNote: "plan set",
+    ahpUrl: ahpUrl("kristine"),
+    tags: ["vaulted ceilings"],
+    blurb:
+      "A 364 sq ft modern farmhouse cabin with a cathedral-ceilinged living room, a kitchenette, and a sleeping loft.",
+  },
+  {
+    id: "AHP-GEORGETOWN",
+    name: "Georgetown",
+    style: "craftsman",
+    beds: 3,
+    baths: 3,
+    sqft: 2268,
+    stories: 2,
+    garage: 2,
+    price: 1599,
+    priceNote: "plan set",
+    ahpUrl: ahpUrl("georgetown"),
+    tags: ["porch", "open floor plan", "office"],
+    blurb:
+      "A craftsman design with a wrap-around porch, a front den that doubles as an office, and an open great room and kitchen.",
+  },
+  {
+    id: "AHP-BAINBRIDGE",
+    name: "Bainbridge",
+    style: "colonial",
     beds: 3,
     baths: 2,
-    sqft: 1780,
+    sqft: 1653,
     stories: 1,
     garage: 2,
-    price: 176000,
-    tags: ["primary suite on main", "open floor plan", "porch"],
+    price: 1399,
+    priceNote: "plan set",
+    ahpUrl: ahpUrl("bainbridge"),
+    tags: ["porch", "primary suite on main"],
     blurb:
-      "Everything on one level, including the primary suite tucked away from the two secondary bedrooms.",
+      "A Southern colonial-style single-story home with a wrap-around covered porch and classic round columns.",
   },
   {
-    id: "PL-1899",
-    name: "Halloway Colonial",
-    style: "colonial",
-    beds: 5,
-    baths: 3.5,
-    sqft: 3400,
-    stories: 2,
-    garage: 3,
-    price: 398000,
-    tags: ["office", "basement", "formal dining"],
-    blurb:
-      "A symmetrical brick facade with a center-hall layout, formal dining room, and a walk-out basement.",
-  },
-  {
-    id: "PL-2677",
-    name: "Whistler Cabin",
-    style: "cabin",
-    beds: 2,
-    baths: 2,
-    sqft: 1240,
+    id: "AHP-SPRINGROSE",
+    name: "Spring Rose",
+    style: "cottage",
+    beds: 1,
+    baths: 1,
+    sqft: 642,
     stories: 1,
     garage: 0,
-    price: 98000,
-    tags: ["porch", "open floor plan", "vaulted ceilings"],
+    price: 899,
+    priceNote: "plan set",
+    ahpUrl: ahpUrl("spring-rose"),
+    tags: ["open floor plan"],
     blurb:
-      "A compact A-frame-inspired footprint with a vaulted great room and a full-width front porch.",
+      "A 642 sq ft cottage-style ADU with an open-concept living area and large windows for natural light.",
   },
   {
-    id: "PL-0456",
-    name: "Cypress Court Cottage",
-    style: "cottage",
+    id: "AHP-MESACANYON",
+    name: "Mesa Canyon",
+    style: "mediterranean",
     beds: 3,
     baths: 2,
-    sqft: 1620,
-    stories: 1.5,
-    garage: 1,
-    price: 154000,
-    tags: ["porch", "primary suite on main", "office"],
-    blurb:
-      "A steep-pitched roof and dormer windows give this cottage two guest rooms tucked upstairs under the eaves.",
-  },
-  {
-    id: "PL-4021",
-    name: "Alameda Mediterranean",
-    style: "mediterranean",
-    beds: 4,
-    baths: 3,
-    sqft: 2940,
-    stories: 2,
+    sqft: 1701,
+    stories: 1,
     garage: 3,
-    price: 356000,
-    tags: ["open floor plan", "primary suite on main", "courtyard"],
+    price: 1499,
+    priceNote: "plan set",
+    ahpUrl: ahpUrl("mesa-canyon"),
+    tags: ["porch", "open floor plan", "primary suite on main"],
     blurb:
-      "A stucco exterior, clay tile roof, and interior courtyard bring the outdoors into the center of the plan.",
+      "A single-story Mediterranean home with stucco siding, a covered front porch, and an open great room warmed by a fireplace.",
   },
   {
-    id: "PL-3018",
-    name: "Birchwood Contemporary",
+    id: "AHP-PONOMA",
+    name: "Ponoma",
     style: "contemporary",
     beds: 3,
-    baths: 2.5,
-    sqft: 2050,
-    stories: 2,
-    garage: 2,
-    price: 248000,
-    tags: ["open floor plan", "office", "vaulted ceilings"],
-    blurb:
-      "Clean gable forms with a two-story window wall lighting an open stair and great room below.",
-  },
-  {
-    id: "PL-1533",
-    name: "Foxglove Farmhouse",
-    style: "farmhouse",
-    beds: 3,
-    baths: 2,
-    sqft: 1890,
-    stories: 1,
-    garage: 2,
-    price: 189000,
-    tags: ["porch", "primary suite on main", "mudroom"],
-    blurb:
-      "A single-story farmhouse with a deep front porch and a mudroom that lands you right off the garage.",
-  },
-  {
-    id: "PL-2894",
-    name: "Redstone Craftsman",
-    style: "craftsman",
-    beds: 4,
     baths: 3,
-    sqft: 2510,
-    stories: 2,
-    garage: 2,
-    price: 267000,
-    tags: ["porch", "open floor plan", "basement", "office"],
+    sqft: 2727,
+    stories: 1,
+    garage: 3,
+    price: 1799,
+    priceNote: "plan set",
+    ahpUrl: ahpUrl("ponoma"),
+    tags: ["porch", "open floor plan", "primary suite on main"],
     blurb:
-      "Stone-and-shingle exterior with a full unfinished basement, ready to grow into a fifth bedroom later.",
+      "A single-story contemporary home with slanted metal rooflines, a covered front porch, and an expansive open great room.",
   },
 ];
 
-export const STYLES = [
-  "farmhouse",
-  "craftsman",
-  "modern",
-  "ranch",
-  "colonial",
-  "cabin",
-  "cottage",
-  "mediterranean",
-  "contemporary",
-];
+export const STYLES = ["farmhouse", "craftsman", "modern", "colonial", "cottage", "mediterranean", "contemporary"];
 
 export const FEATURES = [
   "porch",

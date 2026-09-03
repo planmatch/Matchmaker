@@ -10,7 +10,8 @@ way.
 ```
 src/               React frontend
   App.jsx          Main UI (landing + results)
-  data/plans.js     Sample plan catalog + the Truoba referral link
+  data/plans.js     Real plan catalog — every plan links to its own page on Truoba or
+                    Advanced House Plans, our two affiliate providers
   lib/matching.js   Regex fallback parser + rule-based scoring
   lib/apiClient.js  Calls OUR OWN backend at /api/* (never calls a model API directly)
 
@@ -90,7 +91,10 @@ doesn't run serverless functions.)
 ## Before real users hit this
 
 See the legal pages under `public/` — the Privacy Policy discloses that description text is
-sent to the active AI provider, and the FTC short-form disclosure now sits directly above the
-plan links on the results page, since the Truoba referral link (`?ref=609`) is live tracking.
+sent to the active AI provider, and the FTC short-form disclosure sits directly above the plan
+links on the results page, since both providers' referral links (Truoba's `?ref=609`, Advanced
+House Plans' `?a=...`) are live tracking.
 
-The plan catalog in `src/data/plans.js` is sample data — swap in a real feed before launch.
+The plan catalog in `src/data/plans.js` is a curated set of real plans (14, across the 7 styles
+Truoba and Advanced House Plans actually sell) rather than a full live feed — every plan links to
+its real detail page, but expand the catalog before this needs to cover more ground than a demo.

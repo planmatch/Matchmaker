@@ -665,10 +665,9 @@ function Results({ results, criteriaSummary, onBack, today, usedFallback }) {
             Your shortlist
           </h1>
           <p className="mt-1 text-xs text-[#FAF8F3]/50">
-            Modern-style matches link directly to their real plan page on Truoba, our house plan
-            provider. Other styles are sample data for this demo. Some links on this page are
-            affiliate links — we may earn a commission if you make a purchase, at no extra cost
-            to you.{" "}
+            Every match links to its real plan page on Truoba or Advanced House Plans. Some links
+            on this page are affiliate links — we may earn a commission if you make a purchase, at
+            no extra cost to you.{" "}
             <a href="/affiliate-disclosure.html" className="underline hover:text-[#9CAF88]">
               Learn more
             </a>
@@ -791,15 +790,15 @@ function Results({ results, criteriaSummary, onBack, today, usedFallback }) {
                   )}
                 </span>
               </div>
-              {plan.truobaUrl && (
+              {(plan.truobaUrl || plan.ahpUrl) && (
                 <div className="mt-3">
                   <a
-                    href={plan.truobaUrl}
+                    href={plan.truobaUrl || plan.ahpUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block w-full px-4 py-2 rounded-md bg-[#C1502E] text-[#FAF8F3] text-sm font-medium hover:bg-[#9CAF88] hover:text-[#12213D] transition-colors text-center"
                   >
-                    See on Truoba →
+                    {plan.truobaUrl ? "See on Truoba →" : "See on Advanced House Plans →"}
                   </a>
                 </div>
               )}
